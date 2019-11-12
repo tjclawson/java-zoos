@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface AnimalRepo extends CrudRepository<Animal, Long> {
 
     @Query(value = "SELECT COUNT(*) AS count FROM zooanimals WHERE zooid = :zooid AND animalid = :animalid", nativeQuery = true)
@@ -26,7 +28,7 @@ public interface AnimalRepo extends CrudRepository<Animal, Long> {
     // returns list of animals and counts
     // SELECT a.animalid as animalnamerpt, a.animaltype, count(z.animalid) as countanimal FROM animals a JOIN zooanimals z ON z.animalid = a.animalid GROUP BY a.animalid
     @Query(value = "SELECT a.animalid as animalnamerpt, a.animaltype, count(z.animalid) as countanimal FROM animals a JOIN zooanimals z ON z.animalid = a.animalid GROUP BY a.animalid")
-    AnimalCountZoos getListOfAnimalsZoos();
+    List<AnimalCountZoos> getListOfAnimalsZoos();
 
     @Query(value = "UPDATE animal SET animaltype = :animaltype WHERE animalid = :animalid")
     Animal updateAnimaltype(long animalid, String animaltype);

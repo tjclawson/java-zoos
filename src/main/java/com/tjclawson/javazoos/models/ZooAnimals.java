@@ -1,5 +1,7 @@
 package com.tjclawson.javazoos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,11 +13,13 @@ public class ZooAnimals extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties("zooanimals")
     private Zoo zoo;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "animalid")
+    @JsonIgnoreProperties("zooanimals")
     private Animal animal;
 
     public ZooAnimals() {

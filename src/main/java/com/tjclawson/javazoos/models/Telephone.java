@@ -1,5 +1,7 @@
 package com.tjclawson.javazoos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Telephone extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties("zoo")
     private Zoo zoo;
 
     public Telephone() {}

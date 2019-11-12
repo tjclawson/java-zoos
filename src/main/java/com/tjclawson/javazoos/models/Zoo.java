@@ -1,5 +1,7 @@
 package com.tjclawson.javazoos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,11 @@ public class Zoo extends Auditable {
     private String zooname;
 
     @OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("zoo")
     private List<ZooAnimals> zooanimals = new ArrayList<>();
 
     @OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("zoo")
     private List<Telephone> telephones = new ArrayList<>();
 
     public Zoo() {}

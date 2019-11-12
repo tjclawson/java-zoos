@@ -3,12 +3,17 @@ package com.tjclawson.javazoos.services;
 import com.tjclawson.javazoos.models.Animal;
 import com.tjclawson.javazoos.repositories.AnimalRepo;
 import com.tjclawson.javazoos.repositories.ZooRepo;
+import com.tjclawson.javazoos.views.AnimalCountZoos;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Qualifier(value = "animalService")
 public class AnimalServiceImpl implements AnimalService {
 
     private AnimalRepo animalRepo;
@@ -56,5 +61,10 @@ public class AnimalServiceImpl implements AnimalService {
             animalRepo.updateAnimaltype(id, animal.getAnimaltype());
         } else throw new EntityNotFoundException("No animal with id " + id + " exists");
         return findAnimalById(id);
+    }
+
+    @Override
+    public List<AnimalCountZoos> getCountAnimalZoos() {
+        return animalRepo.getListOfAnimalsZoos();
     }
 }
