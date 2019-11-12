@@ -1,6 +1,7 @@
 package com.tjclawson.javazoos.services;
 
 import com.tjclawson.javazoos.models.Zoo;
+import com.tjclawson.javazoos.views.ZooCountTelephones;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface ZooService {
     void deleteZooAnimal(long zooid, long animalid);
 
     void addZooAnimal(long zooid, long animalid);
+
+    List<ZooCountTelephones> getCountZooTelephones();
 }

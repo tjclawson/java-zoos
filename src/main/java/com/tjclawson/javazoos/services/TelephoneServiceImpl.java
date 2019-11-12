@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,16 +35,26 @@ public class TelephoneServiceImpl implements TelephoneService {
 
     @Override
     public List<Telephone> findByZooId(long id) {
-        return null;
+        return telephoneRepo.findAllByZoo_Zooid(id);
     }
 
     @Override
     public void delete(long id) {
-
+        if (telephoneRepo.findById(id).isPresent()) {
+            telephoneRepo.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("no thanks");
+        }
     }
 
     @Override
     public Telephone update(long phoneid, String phonenumber) {
-        return null;
+        if (telephoneRepo.findById(phoneid).isPresent()) {
+            Telephone telephone = findTelephoneById(phoneid);
+            telephone.setPhonenumber(phonenumber);
+            return telephoneRepo.save(telephone);
+        } else {
+            throw new EntityNotFoundException("No thanks");
+        }
     }
 }
