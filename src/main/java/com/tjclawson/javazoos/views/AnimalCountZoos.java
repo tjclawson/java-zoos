@@ -2,7 +2,7 @@ package com.tjclawson.javazoos.views;
 
 public interface AnimalCountZoos {
 
-    String getAnimalnamerpt();
+    String getAnimaltype();
 
-    int getCountanimals();
+    int getCountanimal();
 }

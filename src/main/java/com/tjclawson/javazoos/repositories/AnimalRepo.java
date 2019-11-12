@@ -17,7 +17,8 @@ public interface AnimalRepo extends CrudRepository<Animal, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM zooanimals WHERE zooid = :zooid AND animalid = :animalid")
+    @Query(value = "DELETE FROM zooanimals WHERE zooid = :zooid AND animalid = :animalid",
+            nativeQuery = true)
     void deleteZooAnimals(long zooid, long animalid);
 
     @Transactional
@@ -27,10 +28,11 @@ public interface AnimalRepo extends CrudRepository<Animal, Long> {
 
     // returns list of animals and counts
     // SELECT a.animalid as animalnamerpt, a.animaltype, count(z.animalid) as countanimal FROM animals a JOIN zooanimals z ON z.animalid = a.animalid GROUP BY a.animalid
-    @Query(value = "SELECT a.animalid as animalnamerpt, a.animaltype, count(z.animalid) as countanimal FROM animals a JOIN zooanimals z ON z.animalid = a.animalid GROUP BY a.animalid")
+    @Query(value = "SELECT a.animaltype, count(z.animalid) as countanimal FROM animals a JOIN zooanimals z ON z.animalid = a.animalid GROUP BY a.animalid",
+            nativeQuery = true)
     List<AnimalCountZoos> getListOfAnimalsZoos();
 
-    @Query(value = "UPDATE animal SET animaltype = :animaltype WHERE animalid = :animalid")
+    @Query(value = "UPDATE animals SET animaltype = :animaltype WHERE animalid = :animalid", nativeQuery = true)
     Animal updateAnimaltype(long animalid, String animaltype);
 
 

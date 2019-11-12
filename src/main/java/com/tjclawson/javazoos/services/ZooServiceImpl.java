@@ -69,7 +69,7 @@ public class ZooServiceImpl implements ZooService {
     @Transactional
     @Override
     public Zoo update(Zoo zoo, long id) {
-        Zoo newZoo = new Zoo();
+        Zoo newZoo = findZooById(id);
         if (zoo.getZooname() != null) {
             newZoo.setZooname(zoo.getZooname());
         }

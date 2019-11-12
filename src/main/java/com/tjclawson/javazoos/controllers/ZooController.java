@@ -72,7 +72,7 @@ public class ZooController {
     }
 
     //localhost:2019/zoos/zoo/{zooid}/animals/{animalid} -- DELETE
-    @DeleteMapping(value = "/zoo/{zooid}/animal/{animalid}")
+    @DeleteMapping(value = "/zoo/{zooid}/animals/{animalid}")
     public ResponseEntity<?> deleteZooAnimalByIds(@PathVariable long zooid, @PathVariable long animalid) {
         zooService.deleteZooAnimal(zooid, animalid);
         return new ResponseEntity<>(HttpStatus.OK);

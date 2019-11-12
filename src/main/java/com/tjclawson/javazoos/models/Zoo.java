@@ -17,11 +17,11 @@ public class Zoo extends Auditable {
     private String zooname;
 
     @OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("zoo")
+    @JsonIgnoreProperties(value = "zoo", allowSetters = true)
     private List<ZooAnimals> zooanimals = new ArrayList<>();
 
     @OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("zoo")
+    @JsonIgnoreProperties(value = "zoo", allowSetters = true)
     private List<Telephone> telephones = new ArrayList<>();
 
     public Zoo() {}
