@@ -1,6 +1,7 @@
 package com.tjclawson.javazoos.services;
 
 import com.tjclawson.javazoos.exceptions.ResourceNotFoundException;
+import com.tjclawson.javazoos.logging.Loggable;
 import com.tjclawson.javazoos.models.Telephone;
 import com.tjclawson.javazoos.repositories.TelephoneRepo;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,7 @@ import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Loggable
 @Service
 @Qualifier("telephoneService")
 public class TelephoneServiceImpl implements TelephoneService {

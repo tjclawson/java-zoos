@@ -1,22 +1,30 @@
 package com.tjclawson.javazoos.controllers;
 
+import com.tjclawson.javazoos.logging.Loggable;
 import com.tjclawson.javazoos.models.Zoo;
 import com.tjclawson.javazoos.services.ZooService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+@Loggable
 @RestController
 @RequestMapping("/zoos")
 public class ZooController {
 
     private ZooService zooService;
+    private static final Logger logger = LoggerFactory.getLogger(AnimalController.class);
 
     public ZooController(ZooService zooService) {
         this.zooService = zooService;
@@ -24,21 +32,27 @@ public class ZooController {
 
     //localhost:2019/zoos/zoos
     @GetMapping(value = "/zoos", produces = {"application/json"})
-    public ResponseEntity<?> listAllZoos() {
+    public ResponseEntity<?> listAllZoos(HttpServletRequest request) {
+        String stringDate = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z").format(new Date().getTime());
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed at " + stringDate);
         List<Zoo> myZoos = zooService.findAll();
         return new ResponseEntity<>(myZoos, HttpStatus.OK);
     }
 
     //localhost:2019/zoos/zoo/{id}
     @GetMapping(value = "/zoo/{zooid}", produces = {"application/json"})
-    public ResponseEntity<?> getZooById(@PathVariable long zooid) {
+    public ResponseEntity<?> getZooById(@PathVariable long zooid, HttpServletRequest request) {
+        String stringDate = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z").format(new Date().getTime());
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed at " + stringDate);;
         Zoo myZoo = zooService.findZooById(zooid);
         return new ResponseEntity<>(myZoo, HttpStatus.OK);
     }
 
     //localhost:2019/zoos/zoo/namelike/{name}
     @GetMapping(value = "/zoo/namelike/{name}", produces = {"application/json"})
-    public ResponseEntity<?> getZooByNamelike(@PathVariable String name) {
+    public ResponseEntity<?> getZooByNamelike(@PathVariable String name, HttpServletRequest request) {
+        String stringDate = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z").format(new Date().getTime());
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed at " + stringDate);
         List<Zoo> myZoos = zooService.findByNameContaining(name);
         return new ResponseEntity<>(myZoos, HttpStatus.OK);
     }

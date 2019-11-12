@@ -2,6 +2,7 @@ package com.tjclawson.javazoos.services;
 
 import com.tjclawson.javazoos.exceptions.ResourceFoundException;
 import com.tjclawson.javazoos.exceptions.ResourceNotFoundException;
+import com.tjclawson.javazoos.logging.Loggable;
 import com.tjclawson.javazoos.models.Animal;
 import com.tjclawson.javazoos.repositories.AnimalRepo;
 import com.tjclawson.javazoos.repositories.ZooRepo;
@@ -14,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Loggable
 @Service
 @Qualifier(value = "animalService")
 public class AnimalServiceImpl implements AnimalService {
