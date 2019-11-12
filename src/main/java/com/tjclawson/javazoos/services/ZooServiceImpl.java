@@ -1,5 +1,7 @@
 package com.tjclawson.javazoos.services;
 
+import com.tjclawson.javazoos.exceptions.ResourceFoundException;
+import com.tjclawson.javazoos.exceptions.ResourceNotFoundException;
 import com.tjclawson.javazoos.models.Telephone;
 import com.tjclawson.javazoos.models.Zoo;
 import com.tjclawson.javazoos.repositories.AnimalRepo;
@@ -40,13 +42,13 @@ public class ZooServiceImpl implements ZooService {
 
     @Override
     public Zoo findZooById(long id) {
-        return zooRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("not today"));
+        return zooRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Zoo with id " + id + " not found"));
     }
 
     @Transactional
     @Override
     public void delete(long id) {
-        zooRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("stop it"));
+        zooRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Zoo with id " + id + " not found"));
         zooRepo.deleteById(id);
     }
 
@@ -54,7 +56,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public Zoo save(Zoo zoo) {
         if (zooRepo.findByZooname(zoo.getZooname()) != null) {
-            throw new EntityNotFoundException(zoo.getZooname() + " already exists");
+            throw new ResourceFoundException(zoo.getZooname() + " already exists");
         }
         Zoo newZoo = new Zoo();
         newZoo.setZooname(zoo.getZooname());
@@ -86,23 +88,23 @@ public class ZooServiceImpl implements ZooService {
     @Transactional
     @Override
     public void deleteZooAnimal(long zooid, long animalid) {
-        zooRepo.findById(zooid).orElseThrow(() -> new EntityNotFoundException("Zoo id " + zooid + " not found"));
-        animalRepo.findById(zooid).orElseThrow(() -> new EntityNotFoundException("Zoo id " + animalid + " not found"));
+        zooRepo.findById(zooid).orElseThrow(() -> new ResourceNotFoundException("Zoo id " + zooid + " not found"));
+        animalRepo.findById(zooid).orElseThrow(() -> new ResourceNotFoundException("Zoo id " + animalid + " not found"));
 
         if (animalRepo.checkZooAnimalCombo(zooid, animalid).getCount() > 0) {
             animalRepo.deleteZooAnimals(zooid, animalid);
-        } else throw new EntityNotFoundException("Zoo Animal Combo does not exist");
+        } else throw new ResourceFoundException("Zoo Animal Combo does not exist");
 
     }
 
     @Override
     public void addZooAnimal(long zooid, long animalid) {
-        zooRepo.findById(zooid).orElseThrow(() -> new EntityNotFoundException("Zoo id " + zooid + " not found"));
-        animalRepo.findById(zooid).orElseThrow(() -> new EntityNotFoundException("Zoo id " + animalid + " not found"));
+        zooRepo.findById(zooid).orElseThrow(() -> new ResourceNotFoundException("Zoo id " + zooid + " not found"));
+        animalRepo.findById(zooid).orElseThrow(() -> new ResourceNotFoundException("Zoo id " + animalid + " not found"));
 
         if (animalRepo.checkZooAnimalCombo(zooid, animalid).getCount() <= 0) {
             animalRepo.insertZooanimal(zooid, animalid);
-        } else throw new EntityNotFoundException("Zoo animal combo already exists");
+        } else throw new ResourceFoundException("Zoo animal combo already exists");
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.tjclawson.javazoos.services;
 
+import com.tjclawson.javazoos.exceptions.ResourceFoundException;
+import com.tjclawson.javazoos.exceptions.ResourceNotFoundException;
 import com.tjclawson.javazoos.models.Animal;
 import com.tjclawson.javazoos.repositories.AnimalRepo;
 import com.tjclawson.javazoos.repositories.ZooRepo;
@@ -33,13 +35,13 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public Animal findAnimalById(long id) {
-        return animalRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("no sir"));
+        return animalRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("No animal with id " + id + " exists"));
     }
 
     @Transactional
     @Override
     public void delete(long id) {
-        animalRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("no sir"));
+        animalRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("No animal with id " + id + " exists"));
         animalRepo.deleteById(id);
     }
 
@@ -47,19 +49,19 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal save(Animal animal) {
         Animal newAnimal = new Animal();
         newAnimal.setAnimaltype(animal.getAnimaltype());
-        if (animal.getZooanimals().size() > 0) throw new EntityNotFoundException("ZooAnimals not created through animal");
+        if (animal.getZooanimals().size() > 0) throw new ResourceFoundException("ZooAnimals not created through animal");
         return animalRepo.save(animal);
     }
 
     @Override
     public Animal update(long id, Animal animal) {
 
-        if (animal.getAnimaltype() == null) throw new EntityNotFoundException("No animal type to update");
-        if (animal.getZooanimals().size() > 0) throw new EntityNotFoundException("Zooanimals not updated through animal");
+        if (animal.getAnimaltype() == null) throw new ResourceNotFoundException("No animal type to update");
+        if (animal.getZooanimals().size() > 0) throw new ResourceFoundException("Zooanimals not updated through animal");
 
         if (animalRepo.findById(id) != null) {
             animalRepo.updateAnimaltype(id, animal.getAnimaltype());
-        } else throw new EntityNotFoundException("No animal with id " + id + " exists");
+        } else throw new ResourceNotFoundException("No animal with id " + id + " exists");
         return findAnimalById(id);
     }
 

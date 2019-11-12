@@ -1,5 +1,6 @@
 package com.tjclawson.javazoos.services;
 
+import com.tjclawson.javazoos.exceptions.ResourceNotFoundException;
 import com.tjclawson.javazoos.models.Telephone;
 import com.tjclawson.javazoos.repositories.TelephoneRepo;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +31,7 @@ public class TelephoneServiceImpl implements TelephoneService {
 
     @Override
     public Telephone findTelephoneById(long id) {
-        return telephoneRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("no"));
+        return telephoneRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Telephone with id " + id + " does not exist"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class TelephoneServiceImpl implements TelephoneService {
         if (telephoneRepo.findById(id).isPresent()) {
             telephoneRepo.deleteById(id);
         } else {
-            throw new EntityNotFoundException("no thanks");
+            throw new ResourceNotFoundException("Telephone with id " + id + " does not exist");
         }
     }
 
@@ -54,7 +55,7 @@ public class TelephoneServiceImpl implements TelephoneService {
             telephone.setPhonenumber(phonenumber);
             return telephoneRepo.save(telephone);
         } else {
-            throw new EntityNotFoundException("No thanks");
+            throw new ResourceNotFoundException("Telephone with id " + phoneid + " does not exist");
         }
     }
 }
