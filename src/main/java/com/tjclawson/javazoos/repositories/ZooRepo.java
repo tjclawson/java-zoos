@@ -2,12 +2,13 @@ package com.tjclawson.javazoos.repositories;
 
 import com.tjclawson.javazoos.models.Zoo;
 import com.tjclawson.javazoos.views.ZooCountTelephones;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface ZooRepo extends CrudRepository<Zoo, Long> {
+public interface ZooRepo extends PagingAndSortingRepository<Zoo, Long> {
 
     List<Zoo> findByZoonameContaining(String zooname);
 

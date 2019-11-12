@@ -5,6 +5,8 @@ import com.tjclawson.javazoos.models.Zoo;
 import com.tjclawson.javazoos.services.ZooService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +34,10 @@ public class ZooController {
 
     //localhost:2019/zoos/zoos
     @GetMapping(value = "/zoos", produces = {"application/json"})
-    public ResponseEntity<?> listAllZoos(HttpServletRequest request) {
+    public ResponseEntity<?> listAllZoos(HttpServletRequest request, @PageableDefault(page = 0, size = 5) Pageable pageable) {
         String stringDate = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z").format(new Date().getTime());
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed at " + stringDate);
-        List<Zoo> myZoos = zooService.findAll();
+        List<Zoo> myZoos = zooService.findAll(pageable);
         return new ResponseEntity<>(myZoos, HttpStatus.OK);
     }
 

@@ -9,10 +9,10 @@ import com.tjclawson.javazoos.repositories.AnimalRepo;
 import com.tjclawson.javazoos.repositories.ZooRepo;
 import com.tjclawson.javazoos.views.ZooCountTelephones;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +30,10 @@ public class ZooServiceImpl implements ZooService {
     }
 
     @Override
-    public List<Zoo> findAll() {
+    public List<Zoo> findAll(Pageable pageable) {
 
         List<Zoo> list = new ArrayList<>();
-        zooRepo.findAll().iterator().forEachRemaining(list::add);
+        zooRepo.findAll(pageable).iterator().forEachRemaining(list::add);
         return list;
     }
 
