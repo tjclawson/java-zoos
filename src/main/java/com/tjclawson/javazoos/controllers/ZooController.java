@@ -37,7 +37,7 @@ public class ZooController {
     public ResponseEntity<?> listAllZoos(HttpServletRequest request, @PageableDefault(page = 0, size = 5) Pageable pageable) {
         String stringDate = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z").format(new Date().getTime());
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed at " + stringDate);
-        List<Zoo> myZoos = zooService.findAll(pageable);
+        List<Zoo> myZoos = zooService.findAll();
         return new ResponseEntity<>(myZoos, HttpStatus.OK);
     }
 

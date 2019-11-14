@@ -38,6 +38,13 @@ public class ZooServiceImpl implements ZooService {
     }
 
     @Override
+    public List<Zoo> findAll() {
+        List<Zoo> list = new ArrayList<>();
+        zooRepo.findAll().iterator().forEachRemaining(list::add);
+        return list;
+    }
+
+    @Override
     public List<Zoo> findByNameContaining(String zooname) {
         return zooRepo.findByZoonameContaining(zooname);
     }

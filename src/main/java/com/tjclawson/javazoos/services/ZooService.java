@@ -10,6 +10,8 @@ public interface ZooService {
 
     List<Zoo> findAll(Pageable pageable);
 
+    List<Zoo> findAll();
+
     List<Zoo> findByNameContaining(String zooname);
 
     Zoo findZooById(long id);

@@ -4,5 +4,5 @@ public interface ZooCountTelephones {
 
     String getZoonamerpt();
 
-    int getCountanimals();
+    int getCountphone();
 }

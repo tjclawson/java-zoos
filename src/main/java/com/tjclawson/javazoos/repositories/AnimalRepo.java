@@ -32,8 +32,10 @@ public interface AnimalRepo extends CrudRepository<Animal, Long> {
             nativeQuery = true)
     List<AnimalCountZoos> getListOfAnimalsZoos();
 
+    @Transactional
+    @Modifying
     @Query(value = "UPDATE animals SET animaltype = :animaltype WHERE animalid = :animalid", nativeQuery = true)
-    Animal updateAnimaltype(long animalid, String animaltype);
+    void updateAnimaltype(long animalid, String animaltype);
 
 
     // returns list of animals and zooid where they are
