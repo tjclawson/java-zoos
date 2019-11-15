@@ -57,22 +57,22 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name = "com.tjclawson.javazoos" level="TRACE" additivity="false">
+    <logger name = "com.tjclawson.javazoos" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </logger>
 
-    <logger name="org.apache.tomcat" level = "TRACE" additivity="false">
+    <logger name="org.apache.tomcat" level = "INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="TOMFILE"/>
     </logger>
 
-    <logger name="org.apache.coyote" level = "TRACE" additivity="false">
+    <logger name="org.apache.coyote" level = "INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="TOMFILE"/>
     </logger>
 
-    <logger name="org.apache.catalina" level = "TRACE" additivity="false">
+    <logger name="org.apache.catalina" level = "INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="TOMFILE"/>
     </logger>

@@ -10,6 +10,15 @@ FROM telephones;
 DELETE
 FROM zoos;
 
+DELETE
+FROM users;
+
+DELETE
+FROM roles;
+
+DELETE
+FROM userroles;
+
 INSERT INTO zoos (zooid, zooname, createdby, createddate, lastmodifiedby, lastmodifieddate)
          VALUES (1, 'Gladys Porter Zoo', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
                 (2, 'Point Defiance Zoo', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
@@ -32,6 +41,24 @@ INSERT INTO animals (animalid, animaltype, createdby, createddate, lastmodifiedb
                 (5, 'tiger', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
                 (6, 'bear', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
                 (7, 'turtle', 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP);
+
+INSERT INTO users (userid, username, password)
+        VALUES  (1, 'admin', 'admin'),
+                (2, 'zoodata', 'zoodata'),
+                (3, 'animaldata', 'animaldata'),
+                (4, 'mgr', 'mgr');
+
+INSERT INTO roles (roleid, name)
+        VALUES  (1, 'admin'),
+                (2, 'zoodata'),
+                (3, 'animaldata'),
+                (4, 'mgr');
+
+INSERT INTO userroles (userid, roleid)
+        VALUES  (1, 1),
+                (2, 2),
+                (3, 3),
+                (4, 4);
 
 INSERT INTO zooanimals (zooid, animalid, createdby, createddate, lastmodifiedby, lastmodifieddate)
          VALUES (1, 1, 'SYSTEM', CURRENT_TIMESTAMP, 'SYSTEM', CURRENT_TIMESTAMP),
